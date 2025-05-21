@@ -1,4 +1,4 @@
-from telebot.types import ReplyKeyboardMarkup, KeyboardButton
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 from services.fluxo import fluxo
 from services.feedback import salvar_feedback
 from services.agendamentos import horarios_disponiveis, salvar_agendamento
@@ -51,6 +51,7 @@ def registrar_agendar(bot):
 
     @bot.message_handler(func=lambda msg: fluxo.get_estado(msg.chat.id) in ["servico_sobrancelha", "servico_facial", "servico_outros"])
     def apos_escolher_servico(message):
+        fluxo.set_servico(message.chat.id, message.text)  
         fluxo.set_estado(message.chat.id, "pos_servico")
         opcoes = ["Escolher outro serviço", "Agendar Horario"]
         bot.send_message(
@@ -84,7 +85,13 @@ def registrar_agendar(bot):
         if horario in horarios_disponiveis(data_hoje, HORARIOS_FIXOS):
             salvar_agendamento(data_hoje, horario, message.chat.id)
             fluxo.set_estado(message.chat.id, "aguardando_feedback")
-            bot.send_message(message.chat.id, f"✅ Agendamento confirmado para hoje às {horario}. Obrigado!")
+            
+            servico = fluxo.get_servico(message.chat.id)  # ✅ Recupera o serviço
+
+            bot.send_message(
+                message.chat.id,
+                f"✅ Agendamento confirmado!\n\n📝 Serviço: {servico}\n🕒 Horário: {horario}.\n\nObrigado!"
+            )
             
             opcoes_feedback = ["👍 Sim", "👎 Não"]
             bot.send_message(
@@ -99,22 +106,29 @@ def registrar_agendar(bot):
     def receber_feedback(message):
         resposta = message.text
         print(f"[DEBUG] Feedback recebido: {resposta}")
-        
+
         if resposta == "👍 Sim":
-            bot.send_message(message.chat.id, "Por favor, deixe seu feedback!")
+            bot.send_message(
+                message.chat.id,
+                "Por favor, deixe seu feedback!",
+                reply_markup=ReplyKeyboardRemove()
+            )
             fluxo.set_estado(message.chat.id, "esperando_feedback_texto")
         else:
-            bot.send_message(message.chat.id, "Obrigado! Se precisar, volte a entrar em contato.")
+            bot.send_message(
+                message.chat.id,
+                "Obrigado! Se precisar, volte a entrar em contato.",
+                reply_markup=ReplyKeyboardRemove()
+            )
             fluxo.resetar(message.chat.id)
+
 
     @bot.message_handler(func=lambda msg: fluxo.get_estado(msg.chat.id) == "esperando_feedback_texto")
     def capturar_feedback_texto(message):
         feedback = message.text
         print(f"[DEBUG] Feedback detalhado: {feedback}")
 
-        # ✅ Salvar feedback no JSON
         salvar_feedback(message.chat.id, feedback)
 
         bot.send_message(message.chat.id, "Agradecemos pelo seu feedback! Voltando ao menu principal.")
         fluxo.resetar(message.chat.id)
-
