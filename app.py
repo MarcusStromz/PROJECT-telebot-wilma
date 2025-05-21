@@ -15,9 +15,10 @@ print(TOKEN_TELEGRAM)
 
 bot = telebot.TeleBot(TOKEN_TELEGRAM)
 
-registrar_start(bot)
-registrar_catalogo(bot)
+# ✅ Ajuste na ordem: registrar_catalogo antes do start
 registrar_agendar(bot)
+registrar_catalogo(bot)  # ⬅️ IMPORTANTE
+registrar_start(bot)
 registrar_suporte(bot)
 registrar_mensagens(bot)
 
