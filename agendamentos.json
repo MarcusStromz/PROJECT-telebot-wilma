@@ -11,5 +11,61 @@
         "14:00": 1589796179,
         "15:00": 1589796179,
         "16:00": 1589796179
+    },
+    "2025-05-22": {
+        "08:00": 5065009846
+    },
+    "2025-05-23": {
+        "08:00": 1589796179
+    },
+    "2025-05-29": {
+        "08:00": {
+            "chat_id": 1589796179,
+            "nome": "Kk",
+            "telefone": "Iii",
+            "servico": "Detox Facial"
+        }
+    },
+    "2025-05-30": {
+        "08:00": {
+            "chat_id": 1589796179,
+            "nome": "N\u00e3o informado",
+            "telefone": "N\u00e3o informado",
+            "servico": "Dermaplaning"
+        },
+        "09:00": {
+            "chat_id": 1589796179,
+            "nome": "N\u00e3o informado",
+            "telefone": "N\u00e3o informado",
+            "servico": "Design e Henna"
+        },
+        "10:00": {
+            "chat_id": 1589796179,
+            "nome": "N\u00e3o informado",
+            "telefone": "N\u00e3o informado",
+            "servico": "Design e Henna"
+        }
+    },
+    "2025-06-01": {
+        "08:00": {
+            "chat_id": 1589796179,
+            "nome": "N\u00e3o informado",
+            "telefone": "N\u00e3o informado",
+            "servico": "Design e Henna"
+        }
+    },
+    "2025-06-02": {
+        "08:00": {
+            "chat_id": 1589796179,
+            "nome": "N\u00e3o informado",
+            "telefone": "N\u00e3o informado",
+            "servico": "Design Personalizado"
+        },
+        "09:00": {
+            "chat_id": 1664867649,
+            "nome": "N\u00e3o informado",
+            "telefone": "N\u00e3o informado",
+            "servico": "Lash Lifting"
+        }
     }
 }

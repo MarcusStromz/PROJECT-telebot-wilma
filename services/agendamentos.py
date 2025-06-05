@@ -1,5 +1,6 @@
 import json
 from os.path import exists
+from services.fluxo import fluxo
 
 ARQUIVO = "agendamentos.json"
 
@@ -13,7 +14,14 @@ def salvar_agendamento(data, hora, chat_id):
     dados = carregar_agendamentos()
     if data not in dados:
         dados[data] = {}
-    dados[data][hora] = chat_id
+
+    dados[data][hora] = {
+        "chat_id": chat_id,
+        "nome": fluxo.get_nome(chat_id),
+        "telefone": fluxo.get_telefone(chat_id),
+        "servico": fluxo.get_servico(chat_id)
+    }
+
     with open(ARQUIVO, "w") as f:
         json.dump(dados, f, indent=4)
 
