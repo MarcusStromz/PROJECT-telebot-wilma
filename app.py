@@ -7,8 +7,7 @@ from handlers.start import registrar_start
 from handlers.catalogo import registrar_catalogo
 from handlers.agendar import registrar_agendar
 from handlers.suporte import registrar_suporte
-# from handlers.mensagens import registrar_mensagens
-from services.fluxo import fluxo  # ✅ IMPORTAÇÃO
+from services.fluxo import fluxo  
 
 dotenv.load_dotenv()
 TOKEN_TELEGRAM = getenv("TOKEN_TELEGRAM")
